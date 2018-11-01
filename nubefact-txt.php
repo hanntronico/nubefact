@@ -48,13 +48,13 @@
  */
 
 
-/*++++++++++++++++++++++++++++++++++++++ CUENTA KM DATA SAC+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*++++++++++++++++++++++++++++++++++++++ CUENTA UDCH SAC+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 // RUTA para enviar documentos
-$ruta = "https://api.nubefact.com/api/v1/e87acdb5-d50f-44bb-924a-cbd40e464450";
+// $ruta = "https://api.nubefact.com/api/v1/e87acdb5-d50f-44bb-924a-cbd40e464450";
 
 //TOKEN para enviar documentos
-$token = "2283a885132b4bf08b631465951e34402dd56af080ca44bdbda4cb8fabe22566";
+// $token = "2283a885132b4bf08b631465951e34402dd56af080ca44bdbda4cb8fabe22566";
 
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
@@ -64,8 +64,11 @@ $token = "2283a885132b4bf08b631465951e34402dd56af080ca44bdbda4cb8fabe22566";
 // RUTA para enviar documentos
 // $ruta = "https://demo.nubefact.com/api/v1/03989d1a-6c8c-4b71-b1cd-7d37001deaa0";
 
+   $ruta = "https://demo.nubefact.com/api/v1/03989d1a-6c8c-4b71-b1cd-7d37001deaa0";
+
 // //TOKEN para enviar documentos
 // $token = "d0a80b88cde446d092025465bdb4673e103a0d881ca6479ebbab10664dbc5677";
+   $token = "d0a80b88cde446d092025465bdb4673e103a0d881ca6479ebbab10664dbc5677";
 
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
@@ -131,7 +134,46 @@ curl_close($ch);
 
 // print_r($respuesta);
 // var_dump($respuesta);
-echo $respuesta;
 
+// echo $respuesta;
+$subcadena1 = explode("enlace_del_pdf|", $respuesta);
+$subcadena2 = explode("enlace_del_xml|", $subcadena1[1]);
+$definitivo = explode("|", $subcadena2[0]);
+$enlace_pdf = $definitivo[0];
 
+echo "<a href='".$enlace_pdf."' >ENLACE</a>"
+
+// $leer_respuesta = json_encode($respuesta, true);
+// if (isset($leer_respuesta['errors'])) {
+// 	//Mostramos los errores si los hay
+//     echo $leer_respuesta['errors'];
+// } else {
+// 	//Mostramos la respuesta
+// $leer_respuesta2 = json_decode($leer_respuesta,true);
+
+// echo $leer_respuesta2['tipo_de_comprobante'];
 ?>
+
+<!-- <h3>RESPUESTA DE SUNAT</h3>
+    <table border="1" style="border-collapse: collapse">
+        <tbody>
+            <tr><th>tipo:</th><td><?php //echo $leer_respuesta['tipo_de_comprobante']; ?></td></tr>
+            <tr><th>serie:</th><td><?php //echo $leer_respuesta['serie']; ?></td></tr>
+            <tr><th>numero:</th><td><?php //echo $leer_respuesta['numero']; ?></td></tr>
+            <tr><th>enlace:</th><td><?php //echo $leer_respuesta['enlace']; ?></td></tr>
+            <tr><th>aceptada_por_sunat:</th><td><?php //echo $leer_respuesta['aceptada_por_sunat']; ?></td></tr>
+            <tr><th>sunat_description:</th><td><?php //echo $leer_respuesta['sunat_description']; ?></td></tr>
+            <tr><th>sunat_note:</th><td><?php //echo $leer_respuesta['sunat_note']; ?></td></tr>
+            <tr><th>sunat_responsecode:</th><td><?php //echo $leer_respuesta['sunat_responsecode']; ?></td></tr>
+            <tr><th>sunat_soap_error:</th><td><?php //echo $leer_respuesta['sunat_soap_error']; ?></td></tr>
+            <tr><th>pdf_zip_base64:</th><td><?php //echo $leer_respuesta['pdf_zip_base64']; ?></td></tr>
+            <tr><th>xml_zip_base64:</th><td><?php //echo $leer_respuesta['xml_zip_base64']; ?></td></tr>
+            <tr><th>cdr_zip_base64:</th><td><?php //echo $leer_respuesta['cdr_zip_base64']; ?></td></tr>
+            <tr><th>cadena_para_codigo_qr:</th><td><?php //echo $leer_respuesta['cadena_para_codigo_qr']; ?></td></tr>
+            <tr><th>codigo_hash:</th><td><?php //echo $leer_respuesta['codigo_hash']; ?></td></tr>
+            <tr><th>enlace_del_pdf:</th><td><?php //echo $leer_respuesta['enlace_del_pdf']; ?></td></tr>
+        </tbody>
+    </table> -->
+
+
+<?php //} ?>

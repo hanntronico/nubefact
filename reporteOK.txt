@@ -1,12 +1,12 @@
 operacion|generar_comprobante|
 tipo_de_comprobante|2|
-serie|BBB1|
-numero|6360|
+serie|B001|
+numero|121|
 sunat_transaction|1|
 cliente_tipo_de_documento|1|
 cliente_numero_de_documento|44831785|
-cliente_denominacion|OLAZABAL VALERA, MARCIA LORENA|
-cliente_direccion||
+cliente_denominacion|CARMEN MONTALVAN PABLO ENRIQUE                                     |
+cliente_direccion|ESCUELA PROF. DE ARQUITECTURA Y URBANISM|
 cliente_email||
 cliente_email_1||
 cliente_email_2||
@@ -18,13 +18,13 @@ porcentaje_de_igv|18|
 descuento_global||
 total_descuento||
 total_anticipo||
-total_gravada|3457.63|
+total_gravada|42.37|
 total_inafecta||
-total_exonerada||
-total_igv|622.37|
+total_exonerada|200|
+total_igv|7.63|
 total_gratuita||
 total_otros_cargos||
-total|4080|
+total|50|
 percepcion_tipo||
 percepcion_base_imponible||
 total_percepcion||
@@ -44,9 +44,6 @@ medio_de_pago||
 placa_vehiculo||
 orden_compra_servicio||
 tabla_personalizada_codigo||
-formato_de_pdf||
+formato_de_pdf|TICKET|
 generado_por_contingencia||
-item|ZZ|2|PENSION DE ENSEÑANZA|1|864.41|1020||864.41|1|155.59|1020|false|||
-item|ZZ|2|PENSION DE ENSEÑANZA|1|864.41|1020||864.41|1|155.59|1020|false|||
-item|ZZ|2|PENSION DE ENSEÑANZA|1|864.41|1020||864.41|1|155.59|1020|false|||
-item|ZZ|2|PENSION DE ENSEÑANZA|1|864.41|1020||864.41|1|155.59|1020|false|||
+item|ZZ|227|CERTIFICADO DE IDIOMAS|1|42.37|50||42.37|1|7.63|50|false|||

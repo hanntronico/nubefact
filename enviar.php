@@ -144,10 +144,14 @@ $numReg = $resultado->num_rows;
 
 
 
-	$tipo_comp="BBB";
+	// $tipo_comp="BBB";
+	$tipo_comp="B00";
+
 	// $serie = $fila["serie"];
 	$serie = "1";
-	$numero = $fila["numero"];
+	// $numero = $fila["numero"];
+	$numero = '121';
+
 	// $codAlumno = $fila["cod_Alumno"];
 	$codAlumno = "44831785";
 	$nomAlumno = $fila["nombres"];
@@ -157,6 +161,7 @@ $numReg = $resultado->num_rows;
 	$tipocambio=3.34;
 	$valigv=18.00;
   $total = $total +  $fila["mto_abono"];
+  $escuela = $fila["nom_escuela"];
 
 
 
@@ -222,6 +227,13 @@ CAMPO 15	Número del documento que contiene el anticipo.
 ***/
 
 
+			// echo "<br>";
+			$consul = "SELECT estadoConcepto FROM `conceptos` WHERE codConcepto = ".$fila["cod_concepto"];
+			$resconcepto = $mysqli->query($consul);
+			$fil_concepto = $resconcepto->fetch_assoc();
+
+			// echo $fil_concepto["estadoConcepto"];
+			// echo "<br>";
 
 
 			$cad1 = "item"."|".
@@ -241,7 +253,6 @@ CAMPO 15	Número del documento que contiene el anticipo.
 							""."|".$salto;
 
 			$caditems = $caditems.$cad1;
-
 
 
 }
@@ -288,8 +299,8 @@ $tipo_comprobante = 2;
 	$cad = $cad.'cliente_tipo_de_documento|'.'1'.'|'.$salto;
 	$cad = $cad.'cliente_numero_de_documento|'.$codAlumno.'|'.$salto;
 	$cad = $cad.'cliente_denominacion|'.$nomAlumno.'|'.$salto;
-	$cad = $cad.'cliente_direccion|'.''.'|'.$salto;
-	$cad = $cad.'cliente_email||'.$salto;
+	$cad = $cad.'cliente_direccion|'.$escuela.'|'.$salto;
+	$cad = $cad.'cliente_email|'.''.'|'.$salto;
 	$cad = $cad.'cliente_email_1||'.$salto;
 	$cad = $cad.'cliente_email_2||'.$salto;
 	$cad = $cad.'fecha_de_emision|'.cambiarFormatoFecha($fecha).'|'.$salto;
@@ -302,7 +313,7 @@ $tipo_comprobante = 2;
 	$cad = $cad.'total_anticipo||'.$salto;
 	$cad = $cad.'total_gravada|'.round($total_gravada,2).'|'.$salto;
 	$cad = $cad.'total_inafecta||'.$salto;
-	$cad = $cad.'total_exonerada||'.$salto;
+	$cad = $cad.'total_exonerada|'.'200'.'|'.$salto;
 	$cad = $cad.'total_igv|'.round($total_igv,2).'|'.$salto;
 	$cad = $cad.'total_gratuita||'.$salto;
 	$cad = $cad.'total_otros_cargos||'.$salto;
@@ -312,7 +323,7 @@ $tipo_comprobante = 2;
 	$cad = $cad.'total_percepcion||'.$salto;
 	$cad = $cad.'total_incluido_percepcion||'.$salto;
 	$cad = $cad.'detraccion|false|'.$salto;
-	$cad = $cad.'observaciones||'.$salto;
+	$cad = $cad.'observaciones|'.''.'|'.$salto;
 	$cad = $cad.'documento_que_se_modifica_tipo||'.$salto;
 	$cad = $cad.'documento_que_se_modifica_serie||'.$salto;
 	$cad = $cad.'documento_que_se_modifica_numero||'.$salto;
@@ -326,7 +337,7 @@ $tipo_comprobante = 2;
 	$cad = $cad.'placa_vehiculo||'.$salto;
 	$cad = $cad.'orden_compra_servicio||'.$salto;
 	$cad = $cad.'tabla_personalizada_codigo||'.$salto;
-	$cad = $cad.'formato_de_pdf||'.$salto;
+	$cad = $cad.'formato_de_pdf|'.'TICKET'.'|'.$salto;
 	$cad = $cad.'generado_por_contingencia||'.$salto;
 	// echo $cad;
 	// exit();
@@ -354,6 +365,6 @@ $tipo_comprobante = 2;
 
 	//print_r($cad);
 
-  // header("Location: nubefact-txt.php");
+  header("Location: nubefact-txt.php");
 
 ?>
