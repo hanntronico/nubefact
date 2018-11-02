@@ -150,18 +150,21 @@ $numReg = $resultado->num_rows;
 	// $serie = $fila["serie"];
 	$serie = "1";
 	// $numero = $fila["numero"];
-	$numero = '121';
+	$numero = '126';
 
 	// $codAlumno = $fila["cod_Alumno"];
+	
 	$codAlumno = "44831785";
+
+
 	$nomAlumno = $fila["nombres"];
 	// $fecemi=$fila["fec_crea"];
 	$fecemi=date('Y-m-d');
+  $escuela = $fila["nom_escuela"];
 	$moneda=1;
 	$tipocambio=3.34;
 	$valigv=18.00;
   $total = $total +  $fila["mto_abono"];
-  $escuela = $fila["nom_escuela"];
 
 
 
@@ -171,7 +174,7 @@ $numReg = $resultado->num_rows;
 
 			$valorunitario = $prec_unit/(1+($valigv/100));
 			$subtotal = $valorunitario*$cantidad;
-			$tipoIGV=1;
+
 			$totalIGV=$valorunitario*($valigv/100);
 			$total_linea=$prec_unit*$cantidad;
 
@@ -227,30 +230,92 @@ CAMPO 15	Número del documento que contiene el anticipo.
 ***/
 
 
+// "	item|ZZ|30|BACHILLERATO									|1|508.47|600||508.47|1|91.53|600|false|||
+// 		item|ZZ|29|MATERIAL INFORME EN INTERNADO|1|	59.32| 70|| 59.32|1|10.68| 70|false|||
+// 		item|ZZ|278|VENTA DE MEDALLA-UDCH				|1|	42.37| 50|| 42.37|1| 7.63| 50|false|||
+// 		item|ZZ|277|VENTA DE SOLAPERO-UDCH			|1|	16.95| 20|| 16.95|1| 3.05| 20|false|||
+// 		item|ZZ|49|ALQUILER DE TOGA							|1|	42.37| 50|| 42.37|1| 7.63| 50|false|||	"
+
+
+// "	item|ZZ| 30|BACHILLERATO									|1|  0.00|600||  0.00|1| 0.00|600|false|||
+// 		item|ZZ| 29|MATERIAL INFORME EN INTERNADO |1|	 0.00| 70||  0.00|1| 0.00| 70|false|||
+// 		item|ZZ|278|VENTA DE MEDALLA-UDCH					|1|	 0.00| 50||  0.00|1| 0.00| 50|false|||
+// 		item|ZZ|277|VENTA DE SOLAPERO-UDCH				|1|	 0.00| 20||  0.00|1| 0.00| 20|false|||
+// 		item|ZZ| 49|ALQUILER DE TOGA							|1|	42.37| 50|| 42.37|1| 7.63| 50|false|||	"
+
+
+// 	item|ZZ| 30|BACHILLERATO										|1| 0.00|600|| 0.00|8|0.00|600|false|||
+// 	item|ZZ| 29|MATERIAL INFORME EN INTERNADO		|1| 0.00| 70|| 0.00|8|0.00| 70|false|||
+// 	item|ZZ|278|VENTA DE MEDALLA-UDCH						|1| 0.00| 50|| 0.00|8|0.00| 50|false|||
+// 	item|ZZ|277|VENTA DE SOLAPERO-UDCH					|1| 0.00| 20|| 0.00|8|0.00| 20|false|||
+// 	item|ZZ| 49|ALQUILER DE TOGA 								|1|42.37| 50||42.37|1|7.63| 50|false|||
+
+
+
 			// echo "<br>";
 			$consul = "SELECT estadoConcepto FROM `conceptos` WHERE codConcepto = ".$fila["cod_concepto"];
 			$resconcepto = $mysqli->query($consul);
 			$fil_concepto = $resconcepto->fetch_assoc();
+			$estado_concepto = $fil_concepto["estadoConcepto"];
 
 			// echo $fil_concepto["estadoConcepto"];
 			// echo "<br>";
 
+			$cantidad = 1;
+			$prec_unit = round($fila["mto_abono"],2);
+			$total_linea=$prec_unit*$cantidad;
+			
+			if ($estado_concepto=="1"){
+				
+				$valorunitario = $prec_unit/(1+($valigv/100));
+				$subtotal = $valorunitario*$cantidad;
+				$totalIGV = $valorunitario*($valigv/100);
 
-			$cad1 = "item"."|".
-							"ZZ"."|".
-							$fila["cod_concepto"]."|".
-	    				trim($fila["descrip_concepto"])."|".
-							$cantidad."|".
-							round($valorunitario,2)."|".
-							$prec_unit."|".
-							""."|".
-							round($subtotal,2)."|".
-							$tipoIGV."|".
-							round($totalIGV,2)."|".
-							round($total_linea,2)."|".
-							"false"."|".
-							""."|".
-							""."|".$salto;
+				$tipoIGV=1;
+				$subtotal_gravada = $subtotal_gravada + round($valorunitario,2);
+				$totalgenIGV = $totalgenIGV + $valorunitario*($valigv/100);
+				
+				$cad1 = "item"."|".
+								"ZZ"."|".
+								$fila["cod_concepto"]."|".
+		    				trim($fila["descrip_concepto"])."|".
+								$cantidad."|".
+								round($valorunitario,2)."|".
+								$prec_unit."|".
+								""."|".
+								round($subtotal,2)."|".
+								$tipoIGV."|".
+								round($totalIGV,2)."|".
+								round($total_linea,2)."|".
+								"false"."|".
+								""."|".
+								""."|".$salto;
+			}else {
+				
+				$valorunitario = $prec_unit/(1+(0/100));
+				$subtotal = $valorunitario*$cantidad;
+				$totalIGV = $valorunitario*(0/100);
+
+				$tipoIGV=8;
+				$subtotal_exonerada=$subtotal_exonerada + round($valorunitario,2);
+				$totalgenIGV = $totalgenIGV + 0.00;
+				$cad1 = "item"."|".
+				        "ZZ"."|".
+				        $fila["cod_concepto"]."|".
+				        trim($fila["descrip_concepto"])."|".
+				        $cantidad."|".
+				        "0.00"."|".
+				        $prec_unit."|".
+				        ""."|".
+				        "0.00"."|".
+				        $tipoIGV."|".
+				        "0.00"."|".
+				        round($total_linea,2)."|".
+				        "false"."|".
+				        ""."|".
+				        ""."|".$salto;
+			}				
+
 
 			$caditems = $caditems.$cad1;
 
@@ -311,10 +376,10 @@ $tipo_comprobante = 2;
 	$cad = $cad.'descuento_global||'.$salto;
 	$cad = $cad.'total_descuento||'.$salto;
 	$cad = $cad.'total_anticipo||'.$salto;
-	$cad = $cad.'total_gravada|'.round($total_gravada,2).'|'.$salto;
+	$cad = $cad.'total_gravada|'.round($subtotal_gravada,2).'|'.$salto;
 	$cad = $cad.'total_inafecta||'.$salto;
-	$cad = $cad.'total_exonerada|'.'200'.'|'.$salto;
-	$cad = $cad.'total_igv|'.round($total_igv,2).'|'.$salto;
+	$cad = $cad.'total_exonerada|'.$subtotal_exonerada.'|'.$salto;
+	$cad = $cad.'total_igv|'.round($totalgenIGV,2).'|'.$salto;
 	$cad = $cad.'total_gratuita||'.$salto;
 	$cad = $cad.'total_otros_cargos||'.$salto;
 	$cad = $cad.'total|'.round($total,2).'|'.$salto;

@@ -1,17 +1,17 @@
 operacion|generar_comprobante|
 tipo_de_comprobante|2|
 serie|B001|
-numero|121|
+numero|126|
 sunat_transaction|1|
 cliente_tipo_de_documento|1|
 cliente_numero_de_documento|44831785|
-cliente_denominacion|CARMEN MONTALVAN PABLO ENRIQUE                                     |
-cliente_direccion|ESCUELA PROF. DE ARQUITECTURA Y URBANISM|
+cliente_denominacion|MALHABER CHIRINOS, OLENKA BRILLITTE|
+cliente_direccion|ESCUELA PROF. DE ADMINISTRACION|
 cliente_email||
 cliente_email_1||
 cliente_email_2||
-fecha_de_emision|31-10-2018|
-fecha_de_vencimiento|31-10-2018|
+fecha_de_emision|02-11-2018|
+fecha_de_vencimiento|02-11-2018|
 moneda|1|
 tipo_de_cambio|3.34|
 porcentaje_de_igv|18|
@@ -20,11 +20,11 @@ total_descuento||
 total_anticipo||
 total_gravada|42.37|
 total_inafecta||
-total_exonerada|200|
+total_exonerada|670|
 total_igv|7.63|
 total_gratuita||
 total_otros_cargos||
-total|50|
+total|720|
 percepcion_tipo||
 percepcion_base_imponible||
 total_percepcion||
@@ -46,4 +46,7 @@ orden_compra_servicio||
 tabla_personalizada_codigo||
 formato_de_pdf|TICKET|
 generado_por_contingencia||
-item|ZZ|227|CERTIFICADO DE IDIOMAS|1|42.37|50||42.37|1|7.63|50|false|||
+item|ZZ|30|BACHILLERATO|1|0.00|600||0.00|8|0.00|600|false|||
+item|ZZ|278|VENTA DE MEDALLA-UDCH|1|0.00|50||0.00|8|0.00|50|false|||
+item|ZZ|277|VENTA DE SOLAPERO-UDCH|1|0.00|20||0.00|8|0.00|20|false|||
+item|ZZ|49|ALQUILER DE TOGA|1|42.37|50||42.37|1|7.63|50|false|||

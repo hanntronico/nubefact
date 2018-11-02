@@ -48,7 +48,7 @@
  */
 
 
-/*++++++++++++++++++++++++++++++++++++++ CUENTA UDCH SAC+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*++++++++++++++++++++++++++++++++++++++ CUENTA UDCH ++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 // RUTA para enviar documentos
 // $ruta = "https://api.nubefact.com/api/v1/e87acdb5-d50f-44bb-924a-cbd40e464450";
@@ -135,13 +135,15 @@ curl_close($ch);
 // print_r($respuesta);
 // var_dump($respuesta);
 
-// echo $respuesta;
+echo $respuesta;
+echo "<br>";
+
 $subcadena1 = explode("enlace_del_pdf|", $respuesta);
 $subcadena2 = explode("enlace_del_xml|", $subcadena1[1]);
 $definitivo = explode("|", $subcadena2[0]);
 $enlace_pdf = $definitivo[0];
 
-echo "<a href='".$enlace_pdf."' >ENLACE</a>"
+echo "<a href='".$enlace_pdf."' >".$enlace_pdf."</a>"
 
 // $leer_respuesta = json_encode($respuesta, true);
 // if (isset($leer_respuesta['errors'])) {
