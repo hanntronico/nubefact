@@ -1,7 +1,7 @@
 operacion|generar_comprobante|
 tipo_de_comprobante|2|
-serie|B001|
-numero|126|
+serie|BBB1|
+numero|6389|
 sunat_transaction|1|
 cliente_tipo_de_documento|1|
 cliente_numero_de_documento|44831785|

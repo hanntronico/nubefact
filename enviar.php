@@ -144,13 +144,14 @@ $numReg = $resultado->num_rows;
 
 
 
-	// $tipo_comp="BBB";
-	$tipo_comp="B00";
+	$tipo_comp="BBB";
+	// $tipo_comp="B00";
 
 	// $serie = $fila["serie"];
 	$serie = "1";
-	// $numero = $fila["numero"];
-	$numero = '126';
+	
+	$numero = $fila["numero"];
+	// $numero = '128';
 
 	// $codAlumno = $fila["cod_Alumno"];
 	
@@ -228,27 +229,6 @@ CAMPO 13	Para indicar que desea regularizar un anticipo.
 CAMPO 14	Serie del documento que contiene el anticipo.
 CAMPO 15	Número del documento que contiene el anticipo.
 ***/
-
-
-// "	item|ZZ|30|BACHILLERATO									|1|508.47|600||508.47|1|91.53|600|false|||
-// 		item|ZZ|29|MATERIAL INFORME EN INTERNADO|1|	59.32| 70|| 59.32|1|10.68| 70|false|||
-// 		item|ZZ|278|VENTA DE MEDALLA-UDCH				|1|	42.37| 50|| 42.37|1| 7.63| 50|false|||
-// 		item|ZZ|277|VENTA DE SOLAPERO-UDCH			|1|	16.95| 20|| 16.95|1| 3.05| 20|false|||
-// 		item|ZZ|49|ALQUILER DE TOGA							|1|	42.37| 50|| 42.37|1| 7.63| 50|false|||	"
-
-
-// "	item|ZZ| 30|BACHILLERATO									|1|  0.00|600||  0.00|1| 0.00|600|false|||
-// 		item|ZZ| 29|MATERIAL INFORME EN INTERNADO |1|	 0.00| 70||  0.00|1| 0.00| 70|false|||
-// 		item|ZZ|278|VENTA DE MEDALLA-UDCH					|1|	 0.00| 50||  0.00|1| 0.00| 50|false|||
-// 		item|ZZ|277|VENTA DE SOLAPERO-UDCH				|1|	 0.00| 20||  0.00|1| 0.00| 20|false|||
-// 		item|ZZ| 49|ALQUILER DE TOGA							|1|	42.37| 50|| 42.37|1| 7.63| 50|false|||	"
-
-
-// 	item|ZZ| 30|BACHILLERATO										|1| 0.00|600|| 0.00|8|0.00|600|false|||
-// 	item|ZZ| 29|MATERIAL INFORME EN INTERNADO		|1| 0.00| 70|| 0.00|8|0.00| 70|false|||
-// 	item|ZZ|278|VENTA DE MEDALLA-UDCH						|1| 0.00| 50|| 0.00|8|0.00| 50|false|||
-// 	item|ZZ|277|VENTA DE SOLAPERO-UDCH					|1| 0.00| 20|| 0.00|8|0.00| 20|false|||
-// 	item|ZZ| 49|ALQUILER DE TOGA 								|1|42.37| 50||42.37|1|7.63| 50|false|||
 
 
 
@@ -430,6 +410,35 @@ $tipo_comprobante = 2;
 
 	//print_r($cad);
 
-  header("Location: nubefact-txt.php");
+  // header("Location: nubefact-txt.php");
+
+
+	$ruta = "https://api.nubefact.com/api/v1/e87acdb5-d50f-44bb-924a-cbd40e464450";
+	$token = "2283a885132b4bf08b631465951e34402dd56af080ca44bdbda4cb8fabe22566";
+	$data_txt = file_get_contents("reporteOK.txt");
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $ruta);
+	curl_setopt(
+		$ch, CURLOPT_HTTPHEADER, array(
+		'Authorization: Token token="'.$token.'"',
+		'Content-Type: text/plain',
+		)
+	);
+	curl_setopt($ch, CURLOPT_POST, 1);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+	curl_setopt($ch, CURLOPT_POSTFIELDS,$data_txt);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	$respuesta  = curl_exec($ch);
+	curl_close($ch);
+	echo $respuesta;
+	echo "<br>";
+
+	$subcadena1 = explode("enlace_del_pdf|", $respuesta);
+	$subcadena2 = explode("enlace_del_xml|", $subcadena1[1]);
+	$definitivo = explode("|", $subcadena2[0]);
+	$enlace_pdf = $definitivo[0];
+
+	echo "<a href='".$enlace_pdf."' >".$enlace_pdf."</a>"
+
 
 ?>
